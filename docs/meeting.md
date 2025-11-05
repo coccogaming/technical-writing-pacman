@@ -34,3 +34,7 @@ Next step: Stesura dell'analisi_tecnica.
 Stesura dell'analisi_tecnica.
 Creazione del file materiale_di_supporto_AI.md in docs/.
 Next step: Stesura del materiale_di_supporto_AI.md.
+
+### Lunedì
+Stesura del materiale_di_supporto_AI.md.
+Next step: Creazione videogioco con Replit.
