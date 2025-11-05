@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAC-MAN - Arcade Replica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="hud">
+            <div class="hud-top">
+                <div id="hud-score-label">SCORE</div>
+                <div id="hud-high-score-label">HIGH SCORE</div>
+            </div>
+            <div class="hud-values">
+                <div id="hud-score">00</div>
+                <div id="hud-high-score">10000</div>
+            </div>
+            <div id="hud-lives-display"></div>
+        </div>
+        <canvas id="game-canvas" width="224" height="288"></canvas>
+        <div class="controls-info">
+            <p>Use Arrow Keys or WASD to move</p>
+            <p>Press SPACE to start</p>
+        </div>
+    </div>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
