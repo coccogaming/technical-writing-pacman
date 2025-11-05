@@ -3,11 +3,13 @@
 ## 1.1. Pac-Man (Il Giocatore)
 
 * Movimento basato su griglia (tile-based)
-* Controllo tramite 4 direzioni (Su, Giù, Sinistra, Destra)
+* Controllo tramite freccette in 4 direzioni: freccia in su/w = pacman si muove verso l'alto; freccia in giù/s = pacman si muove verso il basso; freccia sinistra/a = pacman si muove verso sinistra; freccia destra/d = pacman si muove verso destra.
 * L'input deve essere "bufferato" (se premo "su" prima di una svolta, Pac-Man svolta appena possibile)
 * Animazione di apertura/chiusura bocca
 * Collisione con i "dots", "power pellet" e frutta
 * Collisione con i fantasmi (morte o consumo)
+* Collisione coi muri
+*
 
 ## 1.2. I Fantasmi (IA Originale)
 
