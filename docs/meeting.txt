@@ -2,10 +2,19 @@ VERBALE
 
 Lunedì: 
 Abbiamo creato la Repository. 
-Next step: creare il file meeting.txt in docs/ 
+Next step: Creare il file meeting.txt in docs/.
 
 Martedì:
-Ci siamo collegati tutti alla Repository e abbiamo creato il file meeting.txt
-Next step: Creare PRD
+Ci siamo collegati tutti alla Repository.
+Abbiamo creato i file meeting.txt, prd.md, analisi_funzionale.md e analisi_tecnica.md.
+Next step: Creare il PRD.
 
 Mercoledì:
+Iniziata la stesura del documento PRD.
+Next step: Finire documento PRD.
+
+Giovedì:
+Correzione del PRD.
+Next step: Finire documento PRD.
+
+Venerdì:
