@@ -1,12 +1,12 @@
 # VERBALE RIUNIONE
 
 **Partecipanti:**
-Basangeac Anna
-Boffa Nicolò
-Iannello Michele
-Loureiro Achille
-Mesa Ambar Isabella
-Parini Erika 
+- Basangeac Anna
+- Boffa Nicolò
+- Iannello Michele
+- Loureiro Achille
+- Mesa Ambar Isabella
+- Parini Erika 
 
 ### Lunedì: 
 Creazione della Repository. 
