@@ -1,0 +1,11 @@
+VERBALE 
+
+Lunedì: 
+Abbiamo creato la Repository. 
+Next step: creare il file meeting.txt in docs/ 
+
+Martedì:
+Ci siamo collegati tutti alla Repository e abbiamo creato il file meeting.txt
+Next step: Creare PRD
+
+Mercoledì:
