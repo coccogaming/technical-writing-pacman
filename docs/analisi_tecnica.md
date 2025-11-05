@@ -9,7 +9,6 @@
 * Collisione con i "dots", "power pellet" e frutta
 * Collisione con i fantasmi (morte o consumo)
 * Collisione coi muri
-*
 
 ## 1.2. I Fantasmi (IA Originale)
 
