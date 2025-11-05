@@ -39,8 +39,17 @@ Next step: Stesura del materiale_di_supporto_AI.md.
 Stesura del materiale_di_supporto_AI.md.
 Next step: Creazione del videogioco con Replit.
 
-## Martedì
+### Martedì
 Iniziata la creazione del videogioco con Replit.
 Next step: Conclusione della creazione del videogioco con Replit.
 
-## Mercoledì
+### Mercoledì
+Trovati diversi bug nell'esecuzione del programma.
+Ricerca delle cause.
+Next step: Trovare le cause e risolvere i bug.
+
+### Giovedì
+Trovata la causa dei bug. Prova di risoluzione dei bug.
+Next step: Risoluzione dei bug.
+
+### Venerdì
