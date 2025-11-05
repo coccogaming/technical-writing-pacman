@@ -1,4 +1,12 @@
-VERBALE 
+#VERBALE RIUNIONE
+
+**Partecipanti:*
+Basangeac Anna
+Boffa Nicolò
+Iannello Michele
+Loureiro Achille
+Mesa Ambar Isabella
+Parini Erika 
 
 Lunedì: 
 Abbiamo creato la Repository. 
@@ -18,3 +26,8 @@ Correzione del PRD.
 Next step: Finire documento PRD.
 
 Venerdì:
+Conclusione del PRD.
+Creazione dell'analisi funzionale.
+Next step: Creazione dell'analisi tecnica.
+
+Sabato:
