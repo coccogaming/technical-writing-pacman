@@ -1,5 +1,5 @@
-#3. Requisiti Funzionali (Gameplay)
-3.1. Pac-Man (Il Giocatore)
+#1. Requisiti Funzionali (Gameplay)
+1.1. Pac-Man (Il Giocatore)
 Movimento basato su griglia (tile-based).
 
 Controllo tramite 4 direzioni (Su, Giù, Sinistra, Destra).
@@ -12,7 +12,7 @@ Collisione con i "dots", "power pellet" e frutta.
 
 Collisione con i fantasmi (morte o consumo).
 
-3.2. I Fantasmi (IA Originale)
+1.2. I Fantasmi (IA Originale)
 Il gioco non deve usare una IA casuale. Deve implementare il targeting specifico di ogni fantasma, basato sul comportamento "modalità" (Scatter, Chase, Frightened).
 
 Blinky (Rosso):
@@ -31,7 +31,7 @@ Clyde (Arancione):
 
 Chase Mode: Se è a più di 8 tile da Pac-Man, si comporta come Blinky (insegue Pac-Man). Se è entro 8 tile, passa alla Scatter Mode e mira al suo angolo (in basso a sinistra).
 
-3.3. Modalità dei Fantasmi (Timing)
+1.3. Modalità dei Fantasmi (Timing)
 I fantasmi non inseguono (Chase) costantemente. Alternano tra Scatter (vanno ai loro angoli designati) e Chase (inseguono). Questo timing è fondamentale e deve essere basato sul timer di livello, non su eventi casuali.
 
 Scatter: I fantasmi si disperdono nei loro angoli.
@@ -40,7 +40,7 @@ Chase: I fantasmi inseguono Pac-Man secondo la loro IA (vedi 3.2).
 
 Frightened: Attivato dal consumo di una Power Pellet. I fantasmi diventano blu, invertono la direzione e fuggono (usando uno pseudo-random number generator per le decisioni agli incroci).
 
-3.4. Oggetti e Punteggio
+1.4. Oggetti e Punteggio
 Pac-Dot: 10 punti. (240 totali)
 
 Power Pellet: 50 punti. Attiva la modalità "Frightened".
