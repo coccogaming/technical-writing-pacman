@@ -31,3 +31,5 @@ Creazione dell'analisi funzionale.
 Next step: Creazione dell'analisi tecnica.
 
 ### Sabato:
+Creazione dell'analisi tecnica.
+Iniziata la creazione del materiale_di_supporto_AI.md.
