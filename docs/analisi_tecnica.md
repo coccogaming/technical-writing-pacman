@@ -1,47 +1,164 @@
-# 1. Requisiti Funzionali (Gameplay)
+## 1. Introduzione e Obiettivi Tecnici
 
-## 1.1. Pac-Man (Il Giocatore)
+Questo documento dettaglia l'architettura tecnica, le tecnologie specifiche e le strutture dati necessarie per implementare la replica ad alta fedeltà di Pac-Man, come definito nel PRD.
 
-* Movimento basato su griglia (tile-based)
-* Controllo tramite freccette in 4 direzioni: freccia in su/w = pacman si muove verso l'alto; freccia in giù/s = pacman si muove verso il basso; freccia sinistra/a = pacman si muove verso sinistra; freccia destra/d = pacman si muove verso destra.
-* L'input deve essere "bufferato" (se premo "su" prima di una svolta, Pac-Man svolta appena possibile)
-* Animazione di apertura/chiusura bocca
-* Collisione con i "dots", "power pellet" e frutta
-* Collisione con i fantasmi (morte o consumo)
-* Collisione coi muri
+L'obiettivo primario è garantire che l'architettura sia efficiente, manutenibile e, soprattutto, capace di replicare accuratamente il comportamento deterministico e il timing del gioco arcade originale del 1980, utilizzando esclusivamente Vanilla JavaScript e API HTML5.
 
-## 1.2. I Fantasmi (IA Originale)
+## 2. Stack Tecnologico Dettagliato
 
-Il gioco non deve usare una IA casuale. Deve implementare il targeting specifico di ogni fantasma, basato sul comportamento "modalità" (Scatter, Chase, Frightened).
+### 2.1. HTML5 (index.html)
 
-**Blinky (Rosso):**
+**Struttura:** Un documento HTML5 minimale.
 
-* **Chase Mode:** Insegue direttamente la posizione (tile) di Pac-Man
+**Elementi Chiave:**
 
-**Pinky (Rosa):**
+* `<canvas id="game-canvas"></canvas>`: L'elemento centrale per il rendering del gioco. Avrà dimensioni fisse (es. 224x288 pixel) corrispondenti alla risoluzione arcade.
+* Elementi DOM per l'HUD (Heads-Up Display):
 
-* **Chase Mode:** Mira a 4 tile di fronte alla direzione attuale di Pac-Man (bug originale incluso: se Pac-Man è rivolto verso l'alto, mira 4 tile sopra e 4 a sinistra)
+  ```html
+  <div id="hud-score">00</div>
+  <div id="hud-high-score">00</div>
+  <div id="hud-lives-display"></div>
+  ```
 
-**Inky (Ciano):**
+### 2.2. CSS3 (style.css)
 
-* **Chase Mode:** Complicato. Prende la posizione di Blinky e la posizione 2 tile davanti a Pac-Man, quindi traccia un vettore tra i due e lo raddoppia. È un'imboscata "a pinza".
+**Scopo:** Esclusivamente per il layout della pagina e la presentazione dell'UI, non per il rendering del gioco.
 
-**Clyde (Arancione):**
+**Regole Critiche:**
 
-* **Chase Mode:** Se è a più di 8 tile da Pac-Man, si comporta come Blinky (insegue Pac-Man). Se è entro 8 tile, passa alla Scatter Mode e mira al suo angolo (in basso a sinistra).
+* Reset/Normalize CSS per coerenza cross-browser.
+* Centratura del canvas e sfondo nero:
 
-## 1.3. Modalità dei Fantasmi (Timing)
+  ```css
+  body { background: #000; display: grid; place-items: center; min-height: 100vh; }
+  ```
+* Scalabilità e Pixel-Perfect Rendering:
 
-I fantasmi non inseguono (Chase) costantemente. Alternano tra **Scatter** (vanno ai loro angoli designati) e **Chase** (inseguono). Questo timing è fondamentale e deve essere basato sul timer di livello, non su eventi casuali.
+  ```css
+  canvas {
+      width: 100%;
+      max-width: 448px; /* Esempio: 2x scaling */
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+  }
+  ```
 
-* **Scatter:** I fantasmi si disperdono nei loro angoli.
-* **Chase:** I fantasmi inseguono Pac-Man secondo la loro IA (vedi 3.2).
-* **Frightened:** Attivato dal consumo di una Power Pellet. I fantasmi diventano blu, invertono la direzione e fuggono (usando uno pseudo-random number generator per le decisioni agli incroci).
+### 2.3. JavaScript (ES6+ Modulare)
 
-## 1.4. Oggetti e Punteggio
+**Approccio:** Vanilla JavaScript (Nessun Framework).
 
-* **Pac-Dot:** 10 punti (240 totali)
-* **Power Pellet:** 50 punti. Attiva la modalità "Frightened".
-* **Fantasmi (consumati):** 200, 400, 800, 1600 punti (in sequenza)
-* **Frutta:** Appare periodicamente al centro. Il tipo e il punteggio cambiano con il livello.
-* **Vita Extra:** Assegnata a 10.000 punti
+**Moduli e Struttura dei File:**
+
+```
+main.js
+constants.js
+game.js
+renderer.js
+input.js
+audio.js
+maze.js
+entity.js
+pacman.js
+ghost.js
+```
+
+## 3. Architettura del Codice e Strutture Dati
+
+### 3.1. Strutture Dati Fondamentali
+
+#### 3.1.1. Il Labirinto (Maze Data)
+
+Basato su una matrice 2D (`Array<Array<number>>`, es. 28x36) definita in `constants.js`.
+
+Valori tipici:
+
+```
+0: Muro (Wall)
+1: Spazio Vuoto (Empty)
+2: Pac-Dot (Dot)
+3: Power Pellet (Pellet)
+4: Cancello Casa Fantasmi (Gate)
+5: Tunnel (Tunnel Tile)
+6: Spazio Inaccessibile (fuori mappa)
+```
+
+#### 3.1.2. Stato del Gioco (Global Game State)
+
+Gestito dalla classe `Game`.
+
+```js
+let gameState = {
+    score: 0,
+    highScore: 10000,
+    lives: 3,
+    level: 1,
+    currentTick: 0,
+    gameMode: 'PLAYING',
+    ghostMode: 'SCATTER',
+    ghostModeTimer: 0,
+    frightenTimer: 0,
+    pelletsRemaining: 244,
+    eatenGhostCount: 0
+};
+```
+
+#### 3.1.3. Entità (Pac-Man e Fantasmi)
+
+Basate sulla classe `Entity`.
+
+```js
+class Entity {
+    constructor(x, y, speed, direction) {
+        this.x = x;
+        this.y = y;
+        this.tileX = Math.floor(x / TILE_SIZE);
+        this.tileY = Math.floor(y / TILE_SIZE);
+        this.speed = speed;
+        this.direction = direction;
+    }
+}
+```
+
+Ereditarietà:
+
+* `PacMan` con gestione input e animazione.
+* `Ghost` con gestione AI e targetTile.
+
+## 4. Motori Principali (Core Engines)
+
+### 4.1. Game Loop (Game.js)
+
+Usa `requestAnimationFrame` con timestep fisso:
+
+```js
+const FIXED_UPDATE_TIME = 1000 / 60;
+function loop(currentTime) {
+    // logica e rendering separati
+}
+```
+
+### 4.2. Rendering Engine (Renderer.js)
+
+Utilizza `CanvasRenderingContext2D`. Il labirinto statico è disegnato su un canvas off-screen per ottimizzare le prestazioni.
+
+### 4.3. AI Engine (Logica dei Fantasmi)
+
+Basato su **distanza euclidea**, nessun pathfinding moderno.
+
+* Ogni fantasma ha un targetTile calcolato secondo le regole del PRD.
+* Direzioni possibili valutate su 3 direzioni (no reverse).
+
+### 4.4. Input Engine (Input.js)
+
+Sistema di **input buffering** per permettere la sterzata anticipata.
+
+### 4.5. Collision Detection
+
+* **Tile-based** per muri e dots.
+* **Pixel-based (AABB)** per entità.
+
+### 4.6. Audio Engine (Audio.js)
+
+Basato su **Web Audio API**, con suoni pre-caricati in `AudioBuffer` e gestione dei loop per sirene e modalità frightened.
