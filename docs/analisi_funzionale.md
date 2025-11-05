@@ -1,47 +1,46 @@
-# 1. Requisiti Funzionali (Gameplay)
+# 1. Functional Requirements (Gameplay)
 
-## 1.1. Pac-Man (Il Giocatore)
+## 1.1. Pac-Man (The Player)
 
-* Movimento basato su griglia (tile-based)
-* Controllo tramite freccette in 4 direzioni: freccia in su/w = pacman si muove verso l'alto; freccia in giù/s = pacman si muove verso il basso; freccia sinistra/a = pacman si muove verso sinistra; freccia destra/d = pacman si muove verso destra.
-* L'input deve essere "bufferato" (se premo "su" prima di una svolta, Pac-Man svolta appena possibile)
-* Animazione di apertura/chiusura bocca
-* Collisione con i "dots", "power pellet" e frutta
-* Collisione con i fantasmi (morte o consumo)
-* Collisione coi muri
+* Grid-based movement (tile-based)
+* Controlled via 4 directions (Up, Down, Left, Right)
+* Input must be **buffered** (if the player presses "up" before a turn, Pac-Man turns as soon as possible)
+* Mouth opening/closing animation
+* Collision with "dots," "power pellets," and fruit
+* Collision with ghosts (death or consumption)
 
-## 1.2. I Fantasmi (IA Originale)
+## 1.2. Ghosts (Original AI)
 
-Il gioco non deve usare una IA casuale. Deve implementare il targeting specifico di ogni fantasma, basato sul comportamento "modalità" (Scatter, Chase, Frightened).
+The game must not use random AI. It must implement each ghost's specific targeting behavior, based on mode behavior (**Scatter**, **Chase**, **Frightened**).
 
-**Blinky (Rosso):**
+**Blinky (Red):**
 
-* **Chase Mode:** Insegue direttamente la posizione (tile) di Pac-Man
+* **Chase Mode:** Directly targets Pac-Man's current tile position.
 
-**Pinky (Rosa):**
+**Pinky (Pink):**
 
-* **Chase Mode:** Mira a 4 tile di fronte alla direzione attuale di Pac-Man (bug originale incluso: se Pac-Man è rivolto verso l'alto, mira 4 tile sopra e 4 a sinistra)
+* **Chase Mode:** Aims for the tile four spaces ahead of Pac-Man's current direction (including the original bug: if Pac-Man is facing up, target four tiles up and four tiles left).
 
-**Inky (Ciano):**
+**Inky (Cyan):**
 
-* **Chase Mode:** Complicato. Prende la posizione di Blinky e la posizione 2 tile davanti a Pac-Man, quindi traccia un vettore tra i due e lo raddoppia. È un'imboscata "a pinza".
+* **Chase Mode:** More complex. Uses Blinky's position and the tile two spaces ahead of Pac-Man, draws a vector between the two, and doubles it. This creates a pincer ambush effect.
 
-**Clyde (Arancione):**
+**Clyde (Orange):**
 
-* **Chase Mode:** Se è a più di 8 tile da Pac-Man, si comporta come Blinky (insegue Pac-Man). Se è entro 8 tile, passa alla Scatter Mode e mira al suo angolo (in basso a sinistra).
+* **Chase Mode:** If farther than eight tiles from Pac-Man, behaves like Blinky (chases Pac-Man). If within eight tiles, switches to Scatter Mode and targets his corner (bottom-left).
 
-## 1.3. Modalità dei Fantasmi (Timing)
+## 1.3. Ghost Modes (Timing)
 
-I fantasmi non inseguono (Chase) costantemente. Alternano tra **Scatter** (vanno ai loro angoli designati) e **Chase** (inseguono). Questo timing è fondamentale e deve essere basato sul timer di livello, non su eventi casuali.
+Ghosts do not constantly chase Pac-Man. They alternate between **Scatter** (move toward their designated corners) and **Chase** (actively pursue). This timing is crucial and must be based on a level timer, not random events.
 
-* **Scatter:** I fantasmi si disperdono nei loro angoli.
-* **Chase:** I fantasmi inseguono Pac-Man secondo la loro IA (vedi 3.2).
-* **Frightened:** Attivato dal consumo di una Power Pellet. I fantasmi diventano blu, invertono la direzione e fuggono (usando uno pseudo-random number generator per le decisioni agli incroci).
+* **Scatter:** Ghosts disperse to their corners.
+* **Chase:** Ghosts pursue Pac-Man based on their AI (see section 3.2).
+* **Frightened:** Triggered by consuming a Power Pellet. Ghosts turn blue, reverse direction, and flee (using a pseudo-random number generator for intersection decisions).
 
-## 1.4. Oggetti e Punteggio
+## 1.4. Items and Scoring
 
-* **Pac-Dot:** 10 punti (240 totali)
-* **Power Pellet:** 50 punti. Attiva la modalità "Frightened".
-* **Fantasmi (consumati):** 200, 400, 800, 1600 punti (in sequenza)
-* **Frutta:** Appare periodicamente al centro. Il tipo e il punteggio cambiano con il livello.
-* **Vita Extra:** Assegnata a 10.000 punti
+* **Pac-Dot:** 10 points (240 total)
+* **Power Pellet:** 50 points. Activates the "Frightened" mode.
+* **Ghosts (eaten):** 200, 400, 800, 1600 points (in sequence)
+* **Fruit:** Appears periodically at the center. Type and score vary by level.
+* **Extra Life:** Granted at 10,000 points.
