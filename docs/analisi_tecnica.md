@@ -74,6 +74,7 @@ ghost.js
 ```
 
 ## 3. Architettura del Codice e Strutture Dati
+L'architettura sarà basata su classi e su un gestore di stato centrale per replicare la natura deterministica del gioco originale.
 
 ### 3.1. Strutture Dati Fondamentali
 
