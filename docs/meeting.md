@@ -1,12 +1,12 @@
 # VERBALE RIUNIONE
 
 **Partecipanti:**
-- Basangeac Anna
-- Boffa Nicolò
+- Basangeac Anna - Responsabile del Progetto
+- Boffa Nicolò 
 - Iannello Michele
 - Loureiro Achille
-- Mesa Ambar Isabella
-- Parini Erika 
+- Mesa Boutin Ambar Isabella
+- Parini Erika -  Relatore 
 
 ### Lunedì: 
 Creazione della Repository. 
@@ -53,3 +53,4 @@ Trovata la causa dei bug. Prova di risoluzione dei bug.
 Next step: Risoluzione dei bug.
 
 ### Venerdì
+
