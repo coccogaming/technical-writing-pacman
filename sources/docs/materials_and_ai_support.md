@@ -1,23 +1,23 @@
-# Guidelines for High-Quality Code Generated with AI Companion
+# Guidelines for High-Quality Code Generated with the AI Companion
 
 ## Objective
 
-Provide an **operational prompt** and guidelines to help an LLM agent (AI Companion) write iterative, test-driven, and Git-tracked code for the **high-fidelity Pac-Man replica project** (Namco, 1980). All AI-generated code must be treated as a draft and undergo human review (Human-in-the-loop).
+Provide an **operational prompt** and a set of guidelines to instruct an LLM agent (AI Companion) in performing iterative, test-driven, and git-tracked development for the **high-fidelity Pac‑Man replica project** (Namco, 1980). All code must be treated as a draft and remain under **human-in-the-loop review**.
 
 ---
 
-## 1. Rules of Engagement (Preconditions for the LLM Agent)
+## 1. Engagement Rules (Preconditions for the LLM Agent)
 
-1. Always start by generating unit tests for the requested functionality (Test-First / TDD). Never write an implementation without first writing failing automated tests.
-2. Always include relevant excerpts from `prd.md` and `technical_analysis.md` when working on critical behaviors (e.g., Pinky and Inky AI, ghost timing). For delicate requirements (like Pinky’s “original bug”), always include the exact requirement text.
-3. Code must adhere to the stack: **HTML5 (<canvas>)**, **CSS3**, **JavaScript ES6+**, and must not use any external game frameworks.
-4. Create and maintain a progress file named `TASKS.md` at the repository root using the following format:
+1. Always start by generating unit tests for the requested functionality (Test‑First / TDD). Never write an implementation without first writing failing automated tests.
+2. Always include relevant excerpts from `prd.md` and `analisi_tecnica.md` in the working prompt when implementing critical behaviors (e.g., Pinky or Inky AI, ghost mode timing). For known edge cases (such as the *original Pinky bug*), include the exact requirement statement in the prompt.
+3. The code must adhere to the defined stack: **HTML5 (<canvas>)**, **CSS3**, **JavaScript ES6+**, with **no external game frameworks**.
+4. Maintain a progress file named `TASKS.md` at the repository root, following this format:
 
 ```markdown
 # TASKS
-- [ ] ID-001 | short title | short description
-- [ ] ID-002 | short title | short description
-- [ ] ID-003 | short title | short description
+- [ ] ID-001 | short title | brief description
+- [ ] ID-002 | short title | brief description
+- [ ] ID-003 | short title | brief description
 
 # LEGEND
 - [ ] = TODO
@@ -25,31 +25,31 @@ Provide an **operational prompt** and guidelines to help an LLM agent (AI Compan
 - [x] = DONE
 ```
 
-5. The agent must always work on a dedicated Git branch per task: `feature/<ID>-<short-desc>`, committing frequently with clear messages: `feat(ID-001): implement target calc for PINKY`.
-6. Every PR/merge into `main` must include:
+5. The AI agent must always work on a dedicated git branch per task: `feature/<ID>-<short-desc>`, and perform frequent commits with clear messages, e.g. `feat(ID-001): implement target calc for PINKY`.
+6. Each PR/merge into `main` must include:
 
-   * Passing automated tests
-   * A clear description of changes
-   * Completed quality control checklist
-   * Human approval (human reviewer) before merge
+   * All tests passing (green)
+   * A description of changes
+   * A completed QA checklist
+   * Human approval (reviewer validation) before merge
 
 ---
 
-## 2. Step-by-Step Operational Flow for the AI Companion (Prompt To-Do)
+## 2. Step-by-Step Operational Flow for the AI Companion
 
 For each task:
 
-1. **Read `TASKS.md`** and choose the highest-priority (first unstarted TODO) task.
-2. **Create a Git branch:** `feature/ID-xxx-short`.
-3. **Write unit tests** defining the exact expected behavior. Provide concrete examples (assertions on integer tile coordinates). Run tests — they must fail.
-4. **Implement minimal code** to make tests pass. Run tests — they must pass.
-5. **Add integration tests** if the component interacts with the Game Loop or other critical modules.
-6. **Measure performance** where relevant (baseline: 60 updates/sec simulation for AI logic under Node/Jest). Document results in the commit.
-7. **Write brief documentation** (feature README or JSDoc comment) explaining key technical decisions.
-8. **Update `TASKS.md`**, marking subtasks as `[~]` during development and `[x]` upon completion.
-9. **Create a PR** including description, test list, and checklist for the reviewer.
+1. **Read `TASKS.md`** and select the highest-priority (first non-started TODO) item.
+2. **Create a git branch**: `feature/ID-xxx-short`.
+3. **Write unit tests** that define the exact expected behavior. Provide concrete examples (assert integer tile coordinates for target positions). Run the tests – they must fail.
+4. **Implement the minimal code** required to make the tests pass. Run the tests again – they must pass.
+5. **Add integration tests** if the component interacts with the Game Loop or other core modules.
+6. **Measure performance** if applicable (baseline: 60 updates/sec for AI logic simulation in node/jest). Document results in the commit message.
+7. **Write concise documentation** (feature README or JSDoc comment) explaining key technical decisions.
+8. **Update `TASKS.md`** marking the subtask as `[~]` while in progress and `[x]` upon completion.
+9. **Create a Pull Request (PR)** with a detailed description, test summary, and review checklist.
 
-Example commit flow:
+Example commit workflow:
 
 ```
 git checkout -b feature/ID-042-pinky-target
@@ -99,76 +99,76 @@ open PR
      |- sprites.png
      |- sounds/
   |- TASKS.md
-  |- package.json (devDependencies: jest, @babel if needed, esbuild for quick bundling)
+  |- package.json (devDependencies: jest, @babel if needed, esbuild for fast bundling)
 ```
 
-**Note:** Use Jest (or another JS test runner supporting DOM via jsdom) for unit and pure-function tests (target calculation, tile distance, mode switching). For in-browser rendering or timing tests, use manual/visual or E2E tools (e.g., Playwright) in later stages.
+**Note:** Use Jest (or another JS test runner supporting DOM via jsdom) for unit and pure-function tests (e.g., target calculation, tile distance, mode transitions). For rendering or timing validation, use manual/visual tests or E2E tools (e.g., Playwright) in later development stages.
 
 ---
 
 ## 4. Critical Test Guidelines (Concrete Examples)
 
-*These examples must be included as test cases when prompting the AI to implement ghost AI logic.*
+*These examples must be included as test cases in the prompt when implementing ghost AI.*
 
 ### 4.1. Pinky (Original Bug)
 
 * Pac-Man at tile (14, 17), direction UP.
-* Pinky must target tile (10, 13) (4 tiles ahead + 4 to the left, including the bug). The test should verify the target tile calculation.
+* Pinky must target tile (10, 13) (4 tiles ahead + 4 tiles left, including the bug). Test should assert exact targetTile.
 
 ### 4.2. Blinky
 
-* Blinky target = Pac-Man’s current tile (e.g., Pac-Man tile (14, 17) => target (14, 17)).
+* Target = Pac-Man’s current tile (e.g., Pac-Man tile (14, 17) → target (14, 17)).
 
-### 4.3. Inky (Pinch Ambush)
+### 4.3. Inky (Ambush Logic)
 
 * Given: Pac-Man tile (14, 17), dir RIGHT; Blinky tile (12, 16).
-* Compute: find tile 2 ahead of Pac-Man (16,17), vector from Blinky (12,16) to that point => (4,1), double it => (8,2), target = Blinky + (8,2) = (20,18). Verify with assert.
+* Compute tile 2 ahead of Pac-Man (16,17), draw vector from Blinky (12,16) to that point → (4,1), double it → (8,2), target = Blinky + (8,2) = (20,18). Verify via assert.
 
 ### 4.4. Clyde
 
-* If tile distance (Clyde, Pac-Man) > 8 => target = Pac-Man tile.
-* If distance <= 8 => target = scatter target (e.g., bottom-left corner, e.g. (0, 35)).
+* If distance (Clyde, Pac-Man) > 8 → target = Pac-Man tile.
+* If distance ≤ 8 → target = scatter corner (bottom-left, e.g., (0, 35)).
 
 ### 4.5. Frightened Mode
 
-* After consuming a Power Pellet, set `ghost.mode = 'FRIGHTENED'`. Ghosts must immediately reverse direction (test: direction inverted) and move pseudo-randomly at intersections.
+* After consuming a Power Pellet, set `ghost.mode = 'FRIGHTENED'`. Ghosts must immediately reverse direction (test: direction inverted) and move using pseudo-random choices at intersections.
 
 ---
 
-## 5. Code Review Checklist (to include in PR)
+## 5. Code Review Checklist (for PRs)
 
 * [ ] All tests pass locally and in CI
-* [ ] Critical AI tests included: Pinky, Inky, Clyde
+* [ ] Critical AI tests (Pinky, Inky, Clyde) included
 * [ ] Edge cases covered (map borders, tunnel, ghost house)
-* [ ] No external game libraries used
+* [ ] No use of external game libraries
 * [ ] Performance: no blocking operations in main update loop
 * [ ] Clear commit messages and updated TASKS.md
-* [ ] Minimal feature documentation
-* [ ] Human reviewer validated gameplay results (visual testing)
+* [ ] Minimal feature documentation provided
+* [ ] Human reviewer verified gameplay results (visual testing)
 
 ---
 
-## 6. Operational Prompt for the AI Companion (To Send to the LLM Agent When Requesting Code)
+## 6. Operational Prompt for the AI Companion (to use for each coding session)
 
-> You are an AI Companion assigned to implement a single task for the Pac-Man project. Follow the TDD + Git + TASKS.md workflow described here. First, read `TASKS.md` and pick the highest-priority task. If the task involves AI or timing, always include relevant fragments from `prd.md` and `technical_analysis.md` in your prompt. Write Jest tests for the function you plan to implement and make them fail intentionally. Then implement the minimal code to make them pass. Commit frequently. Never merge to `main` without PR, tests, and human approval.
+> You are an AI Companion tasked with implementing a single feature for the Pac‑Man project. Strictly follow the TDD + git + TASKS.md process described here. Start by reading TASKS.md and select the highest-priority task. If the task involves AI or timing, always include relevant excerpts from `prd.md` and `analisi_tecnica.md` in your prompt. Write Jest tests first (they must fail). Then implement the minimal code to make them pass. Commit frequently. Never merge to `main` without a PR, passing tests, and human approval.
 
 ### Technical Requirements in the Prompt:
 
 * Stack: HTML5 canvas, CSS3, ES6 JavaScript
 * TDD required
 * Git branching per task
-* `TASKS.md` updated during development
-* Unit tests for all critical logic (ghost AI, input buffering, collisions)
+* TASKS.md must be updated during progress
+* Unit tests for all critical logic (ghost AI, input buffering, collision detection)
 
 ---
 
-## 7. Example Tests (Jest Boilerplate)
+## 7. Example Jest Test Boilerplate
 
 ```javascript
 // tests/ghosts/pinky.spec.js
 import { calcPinkyTarget } from '../../src/ghosts/pinky.js';
 
-test('Pinky target calculation - Pac-Man UP (original bug)', () => {
+test('Pinky target calculation - PacMan UP (original bug)', () => {
   const pac = { tileX: 14, tileY: 17, dir: 'UP' };
   const result = calcPinkyTarget(pac);
   expect(result).toEqual({ x: 10, y: 13 });
@@ -191,18 +191,18 @@ test('Inky target calculation example', () => {
 
 ## 8. Safety and Quality Notes
 
-* Treat AI-generated code as a draft: the final responsibility lies with the human developer.
-* If the agent produces code that changes gameplay rules (e.g., balance or feature additions), flag it as `BREAKING_CHANGE` and do not merge without product team approval.
+* Treat AI-generated code as a draft: final responsibility lies with the human developer.
+* If the AI produces code that modifies core gameplay rules (e.g., balance or new features), flag it as `BREAKING_CHANGE` and do not merge without product team approval.
 
 ---
 
-## 9. Useful Attachments (to Include in Prompts When Relevant)
+## 9. Useful Attachments (Include in Prompt When Relevant)
 
-* Excerpts from `prd.md` related to AI and timing
-* Excerpts from `technical_analysis.md` (Game Loop, Fixed Timestep, Maze structure)
+* Excerpts from `prd.md` related to AI and mode timing
+* Excerpts from `analisi_tecnica.md` (Game Loop, Fixed Timestep, Maze structure)
 
 ---
 
 ## 10. Delivery
 
-This document serves as the *single source of truth* for building replicable and safe prompts for the AI Companion. Include it in full as context when asking an LLM agent to write critical code for the Pac-Man project.
+This document serves as the **single source of truth** for creating safe, repeatable prompts for the AI Companion. Copy it entirely as context whenever instructing an LLM to write critical code for the Pac‑Man project.

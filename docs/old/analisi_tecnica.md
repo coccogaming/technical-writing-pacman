@@ -2,16 +2,12 @@
 
 Questo documento dettaglia l'architettura tecnica, le tecnologie specifiche e le strutture dati necessarie per implementare la replica ad alta fedeltà di Pac-Man, come definito nel PRD.
 
-<<<<<<< HEAD
-L'obiettivo primario è garantire che l'architettura sia efficiente, manutenibile e, soprattutto, capace di replicare accuratamente il comportamento deterministico e il timing del gioco arcade originale del 1980, utilizzando esclusivamente Vanilla JavaScript e API HTML5.
-=======
 * Movimento basato su griglia (tile-based)
 * Controllo tramite freccette in 4 direzioni: freccia in su/w = pacman si muove verso l'alto; freccia in giù/s = pacman si muove verso il basso; freccia sinistra/a = pacman si muove verso sinistra; freccia destra/d = pacman si muove verso destra.
 * Animazione di apertura/chiusura bocca
 * Collisione con i "dots", "power pellet" e frutta
 * Collisione con i fantasmi (morte o consumo)
 * Collisione coi muri
->>>>>>> df043e521a6ccf311a673ac2fff5427171f829ad
 
 ## 2. Stack Tecnologico Dettagliato
 
