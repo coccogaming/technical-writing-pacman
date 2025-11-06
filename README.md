@@ -1,83 +1,83 @@
-# Pac‑Man — Replica ad alta fedeltà (HTML5 + JS)
+# Pac-Man — High-Fidelity Replica (HTML5 + JS)
 
-**Questo repository** contiene la progettazione e le linee guida per la replica ad alta fedeltà del classico arcade **Pac‑Man** (Namco, 1980), implementata con tecnologie web moderne: **HTML5 (<canvas>)**, **CSS3**, **JavaScript (ES6+)**.
+**This repository** contains the design and development guidelines for a high-fidelity replica of the classic arcade **Pac-Man** (Namco, 1980), implemented using modern web technologies: **HTML5 (<canvas>)**, **CSS3**, **JavaScript (ES6+)**.
 
-> Nota: il codice generato da strumenti AI deve essere trattato come bozza. Ogni modifica funzionale richiede revisione umana e test (Human‑in‑the‑loop).
-
----
-
-## Sommario
-
-* [Obiettivo](#obiettivo)
-* [Caratteristiche principali](#caratteristiche-principali)
-* [Prerequisiti](#prerequisiti)
-* [Getting started (sviluppo locale)](#getting-started-sviluppo-locale)
-* [Test e TDD](#test-e-tdd)
-* [Flusso di lavoro Git / Branching](#flusso-di-lavoro-git--branching)
-* [TASKS.md e tracciamento delle attività](#tasksmd-e-tracciamento-delle-attivit%C3%A0)
-* [Struttura del repository](#struttura-del-repository)
-* [Linee guida di sviluppo e qualità del codice](#linee-guida-di-sviluppo-e-qualit%C3%A0-del-codice)
-* [AI Companion: prompt operativo (sintesi)](#ai-companion-prompt-operativo-sintesi)
-* [Checklist PR / Code Review](#checklist-pr--code-review)
-* [Contribuire](#contribuire)
-* [Licenza](#licenza)
+> Note: AI-generated code should be treated as a draft. All functional changes require human review and testing (Human-in-the-loop).
 
 ---
 
-## Obiettivo
+## Table of Contents
 
-Creare una replica fedele del gameplay, della grafica, del timing e dell'IA dei fantasmi dell'originale Pac‑Man (1980). Importante: riprodurre fedelmente i comportamenti critici (es. bug originale di Pinky, logica di Inky, timing Scatter/Chase, comportamento di Clyde).
+* [Goal](#goal)
+* [Main Features](#main-features)
+* [Prerequisites](#prerequisites)
+* [Getting Started (Local Development)](#getting-started-local-development)
+* [Testing and TDD](#testing-and-tdd)
+* [Git Workflow / Branching](#git-workflow--branching)
+* [TASKS.md and Activity Tracking](#tasksmd-and-activity-tracking)
+* [Repository Structure](#repository-structure)
+* [Development and Code Quality Guidelines](#development-and-code-quality-guidelines)
+* [AI Companion: Operational Prompt (Summary)](#ai-companion-operational-prompt-summary)
+* [PR / Code Review Checklist](#pr--code-review-checklist)
+* [Contributing](#contributing)
+* [License](#license)
 
-## Caratteristiche principali
+---
 
-* Rendering su `<canvas>` con sprite sheet
-* Game loop a timestep fisso (target 60 update/sec)
-* IA dei fantasmi conforme al comportamento arcade originale (Blinky, Pinky, Inky, Clyde)
-* Input buffering per il "cornering" di Pac‑Man
-* Collisioni tile‑based e controlli pixel‑based per entità
-* Sistema di audio tramite Web Audio API
-* Test Driven Development obbligatorio per logiche critiche
+## Goal
 
-## Prerequisiti
+Recreate a faithful replica of the gameplay, graphics, timing, and ghost AI of the original Pac-Man (1980). It is essential to accurately reproduce critical behaviors (e.g., Pinky's original bug, Inky's logic, Scatter/Chase timing, Clyde's distance-based behavior).
 
-* Node.js (per eseguire test e strumenti di sviluppo)
-* npm o yarn
-* (opzionale) `npx serve` o `http-server` per servire i file statici in locale
+## Main Features
 
-## Getting started (sviluppo locale)
+* Canvas-based rendering using sprite sheets
+* Fixed timestep game loop (target: 60 updates/sec)
+* Ghost AI consistent with original arcade behavior (Blinky, Pinky, Inky, Clyde)
+* Input buffering for Pac-Man's cornering
+* Tile-based collision with pixel-level control for entities
+* Audio via Web Audio API
+* Test Driven Development required for critical logic
 
-1. Clona il repository:
+## Prerequisites
+
+* Node.js (for testing and development tooling)
+* npm or yarn
+* (optional) `npx serve` or `http-server` for local static file serving
+
+## Getting Started (Local Development)
+
+1. Clone the repository:
 
 ```bash
 git clone <repo-url>
 cd <repo>
 ```
 
-2. Installa dipendenze di sviluppo (test runner, bundler opzionale):
+2. Install development dependencies (test runner, optional bundler):
 
 ```bash
 npm install
-# oppure
+# or
 yarn
 ```
 
-3. Avvia un server statico per sviluppare (es. npx serve):
+3. Start a local static server for development (e.g. npx serve):
 
 ```bash
 npx serve .
-# o
+# or
 npx http-server . -c-1
 ```
 
-Apri il browser su `http://localhost:5000` (porta di default di serve) e testa il canvas.
+Open your browser at `http://localhost:5000` (default serve port) to test the canvas.
 
-> Nota: il progetto è strutturato per lavorare con moduli ES6. In fase iniziale è possibile aprire `index.html` direttamente, ma alcuni browser richiedono un server locale per import di moduli.
+> Note: The project uses ES6 modules. While `index.html` can be opened directly, some browsers require a local server for module imports.
 
-## Test e TDD
+## Testing and TDD
 
-Il flusso di sviluppo richiede TDD: scrivere test Jest prima di implementare le funzioni critiche.
+Development follows a TDD workflow: write Jest tests before implementing critical functions.
 
-Script utili (esempio `package.json`):
+Example scripts (`package.json`):
 
 ```json
 {
@@ -89,33 +89,33 @@ Script utili (esempio `package.json`):
 }
 ```
 
-Esempi di test critici da includere:
+Example of critical tests to include:
 
-* Pinky: calcolo target (incluso il bug originale quando Pac‑Man è rivolto verso l'alto)
-* Blinky: target = tile di Pac‑Man
-* Inky: calcolo vettore (Blinky → tile 2 avanti PacMan) * 2
-* Clyde: comportamento a differenza di distanza (soglia 8 tile)
-* Modalità Frightened: inversione direzione e pseudo‑random alle intersezioni
+* Pinky: target calculation (including the original bug when Pac-Man faces upward)
+* Blinky: target = Pac-Man tile
+* Inky: vector calculation (Blinky → tile 2 ahead of Pac-Man) * 2
+* Clyde: distance-based behavior (threshold: 8 tiles)
+* Frightened Mode: direction reversal and pseudo-random intersection logic
 
-Eseguire i test frequentemente e non unire le modifiche in `main` senza test verdi.
+Run tests frequently and never merge to `main` unless all tests pass.
 
-## Flusso di lavoro Git / Branching
+## Git Workflow / Branching
 
-Conservare rigore nel flusso git:
+Maintain a disciplined Git workflow:
 
-* Ogni task ha un ID in `TASKS.md` (es. `ID-042`).
-* Branch naming: `feature/<ID>-short-desc` (es. `feature/ID-042-pinky-target`).
-* Commit frequenti con messaggi formattati: `feat(ID-042): implement PINKY target calc`.
-* PR → revisione umana obbligatoria prima del merge su `main`.
+* Each task has an ID in `TASKS.md` (e.g. `ID-042`).
+* Branch naming: `feature/<ID>-short-desc` (e.g. `feature/ID-042-pinky-target`).
+* Frequent commits with formatted messages: `feat(ID-042): implement PINKY target calc`.
+* PR → mandatory human review before merging to `main`.
 
-## TASKS.md e tracciamento delle attività
+## TASKS.md and Activity Tracking
 
-`TASKS.md` è il singolo file di verità per le attività. Formato minimo:
+`TASKS.md` is the single source of truth for tasks. Minimal format:
 
 ```markdown
 # TASKS
-- [ ] ID-001 | init repo | inizializzazione progetto
-- [ ] ID-042 | pinky target | test + implementazione pinky
+- [ ] ID-001 | init repo | project initialization
+- [ ] ID-042 | pinky target | test + implementation
 
 # LEGEND
 - [ ] = TODO
@@ -123,9 +123,9 @@ Conservare rigore nel flusso git:
 - [x] = DONE
 ```
 
-Durante lo sviluppo aggiornare lo stato dell'attività in `TASKS.md` e includere lo stato nella descrizione della PR.
+Update the task status in `TASKS.md` during development and include it in the PR description.
 
-## Struttura del repository (consigliata)
+## Repository Structure (Suggested)
 
 ```
 / (repo root)
@@ -159,53 +159,43 @@ Durante lo sviluppo aggiornare lo stato dell'attività in `TASKS.md` e includere
   |- package.json
 ```
 
-## Linee guida di sviluppo e qualità del codice
+## Development and Code Quality Guidelines
 
-* Trattare sempre il codice generato dall'AI come bozza. La responsabilità finale è dello sviluppatore.
-* Chiarezza: commenti significativi, JSDoc dove necessario.
-* Modulare: separare responsabilità (AI, rendering, input, audio, stato globale).
-* Performance: evitare calcoli costosi nel ciclo di rendering principale; usare canvas off‑screen per elementi statici (labirinto).
-* Determinismo: usare fixed timestep per la logica di gioco per riproducibilità.
+* Always treat AI-generated code as a draft. The developer holds final responsibility.
+* Clarity: meaningful comments, use JSDoc where needed.
+* Modularity: separate responsibilities (AI, rendering, input, audio, global state).
+* Performance: avoid costly operations in the main render loop; use off-screen canvas for static maze elements.
+* Determinism: use fixed timestep logic for reproducibility.
 
-## AI Companion: prompt operativo (sintesi)
+## AI Companion: Operational Prompt (Summary)
 
-Quando si usa un agente LLM per generare codice:
+When using an LLM agent to generate code:
 
-1. Fornire estratti rilevanti di `prd.md` e dell'`analisi_tecnica.md`.
-2. TDD obbligatorio: scrivere i test che falliscono prima di implementare.
-3. Aggiornare `TASKS.md` e lavorare su branch `feature/ID-...`.
-4. Commit frequenti e PR con descrizione, checklist e approvazione umana.
+1. Provide relevant excerpts from `prd.md` and `technical_analysis.md`.
+2. Follow TDD: write failing tests before implementation.
+3. Update `TASKS.md` and work on a `feature/ID-...` branch.
+4. Commit frequently and submit PRs with description, checklist, and human approval.
 
-Il documento completo delle linee guida dell'AI Companion è incluso nel repository come `docs/ai_companion_guidelines.md`.
+The full AI Companion guideline document is included as `docs/ai_companion_guidelines.md`.
 
-## Checklist PR / Code Review (da includere nella PR)
+## PR / Code Review Checklist
 
-* [ ] Tutti i test passano
-* [ ] Tests critici per IA incluse (Pinky, Inky, Clyde)
-* [ ] TASKS.md aggiornato
-* [ ] Messaggi di commit coerenti
-* [ ] Nessuna libreria di gioco esterna utilizzata
-* [ ] Performance controllata (profiling base) se rilevante
-* [ ] Reviewer umano conferma il comportamento visivo/di gioco
+* [ ] All tests pass
+* [ ] Critical AI tests included (Pinky, Inky, Clyde)
+* [ ] TASKS.md updated
+* [ ] Commit messages consistent
+* [ ] No external game libraries used
+* [ ] Performance checked (basic profiling) if relevant
+* [ ] Human reviewer confirms visual/gameplay behavior
 
-## Contribuire
+## Contributing
 
-1. Apri un issue o scegli una task su `TASKS.md`.
-2. Assegna l'ID e crea il branch seguendo le convenzioni.
-3. Scrivi test TDD, implementa, aggiorna TASKS.md e crea PR.
+1. Open an issue or pick a task from `TASKS.md`.
+2. Assign an ID and create a branch following naming conventions.
+3. Write TDD tests, implement, update TASKS.md, and open a PR.
 
-Per modifiche architetturali importanti, aggiungere una breve RFC in `docs/` e ottenere consenso del team.
+For major architectural changes, add a short RFC in `docs/` and obtain team consensus.
 
-## Licenza
+## License
 
-Il repository non include una licenza di default. Aggiungere `LICENSE` con la licenza preferita (es. MIT) prima di rilasciare il codice pubblicamente.
-
----
-
-Se desideri, posso:
-
-* generare un `package.json` di esempio con gli script necessari;
-* creare i file di test di esempio (`tests/ghosts/*.spec.js`) e i moduli base (`src/ghosts/*.js`) per iniziare;
-* o aggiornare il README con informazioni specifiche sul deploy o su CI (GitHub Actions).
-
-Dimmi quale opzione preferisci e procedo.
+This repository is licensed under the **MIT License**. See the `LICENSE` file for details.
