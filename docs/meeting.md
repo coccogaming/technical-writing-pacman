@@ -1,5 +1,5 @@
-# VERBALE RIUNIONE
-
+# VERBALE RIUNIONE - 5 NOVEMBRE 2025
+ 
 **Partecipanti:**
 - Basangeac Anna - Responsabile del Progetto
 - Boffa Nicolò 
