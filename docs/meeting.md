@@ -1,4 +1,4 @@
-# VERBALE RIUNIONE 5 NOVEMBRE 2025
+# VERBALE RIUNIONE - 5 NOVEMBRE 2025
  
 **Partecipanti:**
 - Basangeac Anna
