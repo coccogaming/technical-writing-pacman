@@ -1,56 +1,56 @@
-# OBIETTIVO DI PROGETTO - PAC-MAN
+# PROJECT OBJECTIVE - PAC-MAN
 
-## 1. Introduzione e Obiettivo
+## 1. Introduction and Objective
 
-### 1.1. Visione del Prodotto
+### 1.1. Product Vision
 
-L'obiettivo è sviluppare una replica ad alta fedeltà del videogioco arcade originale **Pac-Man** (Namco, 1980). Questo progetto deve replicare esattamente il gameplay, la grafica, l'IA dei fantasmi e i pattern di comportamento dell'originale, utilizzando esclusivamente tecnologie web moderne (**HTML5**, **CSS3**, **JavaScript**).
+The goal is to develop a high-fidelity replica of the original **Pac-Man** arcade video game (Namco, 1980). This project must accurately reproduce the gameplay, graphics, ghost AI, and behavioral patterns of the original, using only modern web technologies (**HTML5**, **CSS3**, **JavaScript**).
 
-### 1.2. Scopo (Scope)
+### 1.2. Scope
 
 **In Scope:**
 
-* Gameplay completo del Livello 1
-* IA originale dei fantasmi (Scatter, Chase, Frightened)
-* Punteggi, vite, suoni e intermezzi ("cutscene")
+* Full gameplay of Level 1
+* Original ghost AI (Scatter, Chase, Frightened)
+* Scoring, lives, sounds, and intermissions ("cutscenes")
 
 **Out of Scope:**
 
-* Nuovi livelli
-* Modalità multiplayer
-* Leaderboard online
-* Modifiche al bilanciamento del gioco
+* Additional levels
+* Multiplayer mode
+* Online leaderboards
+* Gameplay balancing changes
 
-### 1.3. Risorse di Riferimento
+### 1.3. Reference Resources
 
 * **Gameplay (Video):** [https://youtu.be/i_OjztdQ8iw](https://youtu.be/i_OjztdQ8iw)
-* **Meccaniche (Wiki):** [https://pacman.fandom.com/wiki/Pac-Man_(game)](https://pacman.fandom.com/wiki/Pac-Man_%28game%29)
-* **Contesto (Wikipedia):** [https://it.wikipedia.org/wiki/Pac-Man](https://it.wikipedia.org/wiki/Pac-Man)
+* **Mechanics (Wiki):** [https://pacman.fandom.com/wiki/Pac-Man_(game)](https://pacman.fandom.com/wiki/Pac-Man_%28game%29)
+* **Context (Wikipedia):** [https://en.wikipedia.org/wiki/Pac-Man](https://en.wikipedia.org/wiki/Pac-Man)
 
-## 2. Architettura Tecnica
+## 2. Technical Architecture
 
-### 2.1. Stack Tecnologico
+### 2.1. Technology Stack
 
-* **Struttura:** HTML5 (utilizzando l'elemento `<canvas>`)
-* **Stile:** CSS3 (per il layout della pagina, HUD e animazioni UI, ma non per il rendering del gioco)
-* **Logica:** JavaScript (ES6+). Nessun framework di gioco (es. Phaser) per mantenere il controllo totale sulla logica e sulle prestazioni, replicando il comportamento originale.
+* **Structure:** HTML5 (using the `<canvas>` element)
+* **Style:** CSS3 (for page layout, HUD, and UI animations, but not for game rendering)
+* **Logic:** JavaScript (ES6+). No external game frameworks (e.g., Phaser) will be used to maintain full control over logic and performance, ensuring faithful replication of the original behavior.
 
-### 2.2. Componenti Chiave
+### 2.2. Key Components
 
 **Game Loop Engine:**
-Un loop basato su `requestAnimationFrame` per garantire aggiornamenti fluidi (target 60 FPS). Sarà responsabile di chiamare la logica di aggiornamento e quella di rendering.
+A loop based on `requestAnimationFrame` to ensure smooth updates (target 60 FPS). It will be responsible for calling both update and render logic.
 
 **Rendering Engine:**
-Gestirà il disegno di tutti gli sprite (Pac-Man, fantasmi, labirinto, "dots") sul `<canvas>`. Utilizzerà uno sprite sheet per ottimizzare le prestazioni.
+Handles drawing of all sprites (Pac-Man, ghosts, maze, dots) on the `<canvas>`. It will use a sprite sheet for performance optimization.
 
 **Input Handler:**
-Catturerà gli input da tastiera (tasti freccia) e li accoderà. Pac-Man deve rispondere ai comandi con il timing esatto dell'originale (es. "cornering").
+Captures keyboard input (arrow keys) and buffers commands. Pac-Man must respond to player input with the exact timing of the original (e.g., cornering).
 
 **State Manager:**
-Un oggetto JavaScript globale (o classe) per tracciare lo stato del gioco: punteggio, vite, livello attuale, stato dei fantasmi, timer degli eventi.
+A global JavaScript object (or class) to track the current game state: score, lives, current level, ghost states, and event timers.
 
 **Audio Engine:**
-Utilizzerà l'API Web Audio (o HTML5 Audio) per gestire gli effetti sonori iconici (Wakka-Wakka, morte, inizio livello, consumo fantasmi).
+Uses the Web Audio API (or HTML5 Audio) to reproduce iconic sound effects (Wakka-Wakka, death, level start, ghost consumption).
 
 **AI Engine:**
-Il componente più critico. Deve replicare il comportamento deterministico dei quattro fantasmi (vedi Sezione 3.2).
+The most critical component. Must replicate the deterministic behavior of all four ghosts (see Section 3.2).
