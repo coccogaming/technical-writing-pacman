@@ -1,12 +1,12 @@
-# VERBALE RIUNIONE
-
+# VERBALE RIUNIONE - 05/11/2025
+ 
 **Partecipanti:**
 - Basangeac Anna - Responsabile del Progetto
-- Boffa Nicolò 
+- Boffa Nicolò
 - Iannello Michele
 - Loureiro Achille
 - Mesa Boutin Ambar Isabella
-- Parini Erika -  Relatore 
+- Parini Erika -  Relatore
 
 ### Lunedì: 
 Creazione della Repository. 
@@ -51,6 +51,3 @@ Next step: Trovare le cause e risolvere i bug.
 ### Giovedì
 Trovata la causa dei bug. Prova di risoluzione dei bug.
 Next step: Risoluzione dei bug.
-
-### Venerdì
-
